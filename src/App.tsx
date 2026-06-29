@@ -12,6 +12,7 @@ import Reviews from '@/components/sections/Reviews'
 import CTASection from '@/components/sections/CTASection'
 import Location from '@/components/sections/Location'
 import FAQ from '@/components/sections/FAQ'
+import Reservation from '@/components/sections/Reservation'
 import FloatingWhatsApp from '@/components/sections/FloatingWhatsApp'
 
 export default function App() {
@@ -40,11 +41,12 @@ export default function App() {
   }, [theme])
 
   const navLinks = [
-    { href: '#nosotros', label: 'Nosotros' },
-    { href: '#carta',    label: business.type === 'restaurant' ? 'Carta' : 'Productos' },
-    { href: '#galeria',  label: 'Galería' },
+    { href: '#nosotros',  label: 'Nosotros' },
+    { href: '#carta',     label: business.type === 'restaurant' ? 'Carta' : 'Productos' },
+    { href: '#galeria',   label: 'Galería' },
     { href: '#opiniones', label: 'Opiniones' },
-    { href: '#contacto', label: 'Contacto' },
+    { href: '#reservar',  label: 'Reservar' },
+    { href: '#contacto',  label: 'Contacto' },
   ]
 
   return (
@@ -57,6 +59,7 @@ export default function App() {
         <FeaturedItems config={siteConfig} />
         <Gallery  config={siteConfig} />
         <Reviews  config={siteConfig} />
+        <Reservation config={siteConfig} />
         <CTASection config={siteConfig} />
         <Location config={siteConfig} />
         <FAQ      config={siteConfig} />

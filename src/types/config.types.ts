@@ -104,14 +104,24 @@ export interface FAQItem {
   answer:   string
 }
 
+export interface ReservationConfig {
+  enabled:           boolean
+  headline:          string
+  subheadline?:      string
+  confirmationNote?: string
+  timeSlots:         string[]
+  maxPartySize:      number
+}
+
 export interface ContentConfig {
-  hero:       HeroContent
-  valueProps: ValueProp[]
-  about:      AboutContent
-  cta:        CTAContent
-  faq:        FAQItem[]
+  hero:         HeroContent
+  valueProps:   ValueProp[]
+  about:        AboutContent
+  cta:          CTAContent
+  faq:          FAQItem[]
   itemsTitle:    string
   itemsSubtitle: string
+  reservation?:  ReservationConfig
 }
 
 // ─── Items (menu / products / services) ──────────────────────────────────────

@@ -7,11 +7,7 @@ export default function Hero({ config }: HeroProps) {
   const { business, content: { hero } } = config
   const titleRef = useRef<HTMLHeadingElement>(null)
 
-  const ctaReservaHref = business.reservationUrl
-    ? business.reservationUrl
-    : business.whatsapp !== 'PENDIENTE_DE_CONFIRMAR'
-    ? `https://wa.me/${business.whatsapp.replace(/\D/g, '')}?text=${encodeURIComponent(business.whatsappMessage)}`
-    : '#contacto'
+  const ctaReservaHref = '#reservar'
 
   useEffect(() => {
     const el = titleRef.current
@@ -141,10 +137,13 @@ export default function Hero({ config }: HeroProps) {
           <div className="reveal flex flex-col sm:flex-row gap-3 mb-12" style={{ transitionDelay: '0.2s' }}>
             <a
               href={ctaReservaHref}
-              target={business.reservationUrl ? '_blank' : undefined}
-              rel={business.reservationUrl ? 'noopener noreferrer' : undefined}
-              className="inline-flex items-center justify-center gap-2.5 font-body font-semibold text-sm px-8 py-4 rounded-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] min-h-[52px]"
-              style={{ background: '#C8A96A', color: '#080f0b', boxShadow: '0 4px 24px rgba(200,169,106,0.35)' }}
+              className="inline-flex items-center justify-center gap-2.5 font-body font-semibold text-sm px-8 py-4 rounded-sm transition-all duration-200 hover:brightness-110 active:scale-[0.98] min-h-[52px]"
+              style={{
+                background: '#2D5A40',
+                color: '#F4EFE6',
+                border: '1px solid rgba(200,169,106,0.35)',
+                boxShadow: '0 4px 24px rgba(30,58,47,0.5), inset 0 1px 0 rgba(200,169,106,0.15)',
+              }}
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                 <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>

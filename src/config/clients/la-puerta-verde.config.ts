@@ -25,7 +25,6 @@ export const lapuertaverdeConfig: SiteConfig = {
     city:             'Fuengirola',
     googleMapsUrl:    'https://maps.google.com/?q=La+Puerta+Verde+Fuengirola',
     googleMapsEmbed:  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3198.0!2d-4.6!3d36.54!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDMyJzI0LjAiTiA0wrAzNicwMC4wIlc!5e0!3m2!1ses!2ses!4v1234567890',
-    reservationUrl:   'https://www.la-puerta-verde.com/rservations/',
     openingHours: [
       { days: 'Martes — Sábado', hours: '19:00 – 23:00', note: 'Cocina hasta las 22:00' },
       { days: 'Domingo — Lunes', hours: 'Cerrado' },
@@ -148,6 +147,15 @@ export const lapuertaverdeConfig: SiteConfig = {
 
     itemsTitle:    'Nuestra Carta',
     itemsSubtitle: 'Tapas de autor que cambian casi a diario. Aquí tienes nuestra propuesta habitual.',
+
+    reservation: {
+      enabled:          true,
+      headline:         'Reserva tu mesa',
+      subheadline:      'Asegura tu sitio para una noche especial. Somos un espacio íntimo con plazas limitadas.',
+      confirmationNote: 'Te confirmamos disponibilidad por WhatsApp en menos de 2 horas. Abrimos mar–sáb de 19:00 a 23:00.',
+      timeSlots:        ['19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30'],
+      maxPartySize:     12,
+    },
   },
 
   // ─── CARTA ────────────────────────────────────────────────────────────────
