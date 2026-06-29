@@ -18,49 +18,74 @@ export default function CTASection({ config }: CTASectionProps) {
   return (
     <section
       ref={ref}
-      className="reveal relative py-24 lg:py-32 bg-[var(--color-primary)] overflow-hidden"
+      className="reveal relative py-24 lg:py-32 overflow-hidden"
+      style={{ background: '#1E3A2F' }}
     >
-      {/* Texture overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)',
-          backgroundSize: '28px 28px',
-        }}
+      {/* Botanical pattern de fondo */}
+      <svg
+        className="absolute inset-0 w-full h-full opacity-[0.04]"
+        xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
-      />
-      {/* Glow */}
+        style={{ mixBlendMode: 'screen' }}
+      >
+        <defs>
+          <pattern id="botanical-cta" x="0" y="0" width="160" height="160" patternUnits="userSpaceOnUse">
+            <path d="M35 80 Q55 35 80 45 Q62 72 35 80Z" fill="#C8A96A" opacity="0.7"/>
+            <path d="M35 80 Q48 88 80 45" stroke="#C8A96A" strokeWidth="0.8" fill="none" opacity="0.5"/>
+            <path d="M125 25 Q142 62 125 78 Q108 56 125 25Z" fill="#C8A96A" opacity="0.5"/>
+            <circle cx="16" cy="140" r="1.5" fill="#C8A96A" opacity="0.5"/>
+            <circle cx="88" cy="135" r="1" fill="#C8A96A" opacity="0.4"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#botanical-cta)"/>
+      </svg>
+
+      {/* Glow superior derecha */}
       <div
-        className="absolute -top-32 -right-32 w-96 h-96 rounded-full bg-[var(--color-secondary)]/15 blur-3xl"
+        className="absolute top-0 right-0 w-96 h-96 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at top right, rgba(200,169,106,0.12) 0%, transparent 70%)' }}
         aria-hidden="true"
       />
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="w-10 h-0.5 bg-[var(--color-secondary)] mx-auto mb-6" aria-hidden="true" />
-        <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-semibold text-[var(--color-ink-inv)] leading-tight mb-4">
+
+        {/* Ornamento */}
+        <div className="flex items-center justify-center gap-4 mb-7" aria-hidden="true">
+          <div className="h-px w-14" style={{ background: 'linear-gradient(to right, transparent, rgba(200,169,106,0.6))' }}/>
+          <svg width="14" height="14" viewBox="0 0 14 14">
+            <circle cx="7" cy="7" r="2.5" fill="#C8A96A" opacity="0.8"/>
+            <circle cx="7" cy="7" r="6" stroke="#C8A96A" strokeWidth="0.7" opacity="0.3" fill="none"/>
+          </svg>
+          <div className="h-px w-14" style={{ background: 'linear-gradient(to left, transparent, rgba(200,169,106,0.6))' }}/>
+        </div>
+
+        <h2 className="font-heading font-semibold text-white leading-tight mb-4" style={{ fontSize: 'clamp(2rem, 5vw, 3.5rem)' }}>
           {cta.headline}
         </h2>
-        <p className="font-body text-base md:text-lg text-[var(--color-ink-inv)]/70 mb-10 max-w-xl mx-auto leading-relaxed">
+        <p className="font-body text-base leading-relaxed mb-10 max-w-xl mx-auto" style={{ color: 'rgba(244,239,230,0.65)' }}>
           {cta.subheadline}
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+
           {/* WhatsApp */}
           <a
             href={whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 font-body font-medium px-7 py-4 rounded-sm bg-[#25D366] text-white hover:bg-[#1ebe5c] transition-colors shadow-lg min-h-[52px] touch-action-manipulation"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 font-body font-semibold text-sm px-8 py-4 rounded-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] min-h-[52px] touch-action-manipulation shadow-lg"
+            style={{ background: '#25D366', color: '#fff' }}
           >
             <WhatsAppIcon />
             {cta.ctaWhatsapp}
           </a>
 
-          {/* Call */}
+          {/* Teléfono */}
           {business.phone !== 'PENDIENTE_DE_CONFIRMAR' && (
             <a
               href={phoneHref}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 font-body font-medium px-7 py-4 rounded-sm border border-[var(--color-ink-inv)]/30 text-[var(--color-ink-inv)] hover:bg-[var(--color-ink-inv)]/8 transition-colors min-h-[52px] touch-action-manipulation"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 font-body font-medium text-sm px-8 py-4 rounded-sm transition-all duration-200 hover:bg-white/10 min-h-[52px] touch-action-manipulation"
+              style={{ color: 'rgba(244,239,230,0.85)', border: '1px solid rgba(244,239,230,0.25)' }}
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -74,7 +99,8 @@ export default function CTASection({ config }: CTASectionProps) {
             href={business.googleMapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 font-body font-medium px-7 py-4 rounded-sm border border-[var(--color-ink-inv)]/30 text-[var(--color-ink-inv)] hover:bg-[var(--color-ink-inv)]/8 transition-colors min-h-[52px] touch-action-manipulation"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 font-body font-medium text-sm px-8 py-4 rounded-sm transition-all duration-200 hover:bg-white/10 min-h-[52px] touch-action-manipulation"
+            style={{ color: 'rgba(244,239,230,0.85)', border: '1px solid rgba(244,239,230,0.25)' }}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
