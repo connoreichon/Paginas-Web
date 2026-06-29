@@ -65,7 +65,7 @@ export const lapuertaverdeConfig: SiteConfig = {
       subheadline:  'Cocina artesanal nórdico-española en el corazón de Fuengirola. Una experiencia que va más allá de comer.',
       ctaPrimary:   'Reservar mesa',
       ctaSecondary: 'Ver la carta',
-      image:        '/images/hero-restaurante.jpg',
+      image:        'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1920&q=80',
       imageAlt:     'Interior acogedor de La Puerta Verde, Fuengirola',
       trustBadges: [
         { value: '4.8★', label: 'en TripAdvisor' },
@@ -104,8 +104,8 @@ export const lapuertaverdeConfig: SiteConfig = {
         'Fusionamos la precisión nórdica con el sabor mediterráneo que caracteriza la Costa del Sol. El resultado es una experiencia única que sorprende en cada visita.',
         '"Hand crafted quality food and good wines." Eso somos. Eso ofrecemos.',
       ],
-      image:    '/images/interior-restaurante.jpg',
-      imageAlt: 'El equipo de La Puerta Verde en cocina',
+      image:    'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=900&q=80',
+      imageAlt: 'Interior acogedor de La Puerta Verde',
       highlights: [
         'Carta de temporada',
         'Menús degustación',
@@ -226,12 +226,36 @@ export const lapuertaverdeConfig: SiteConfig = {
 
   gallery: {
     images: [
-      { src: '/images/plato-1.jpg',    alt: 'Tapa de autor de La Puerta Verde',   caption: 'Crudo de vaca' },
-      { src: '/images/plato-2.jpg',    alt: 'Sopa de gambas al pil pil',          caption: 'Gambas al pil pil' },
-      { src: '/images/plato-3.jpg',    alt: 'Tarta de queso vasca',               caption: 'Tarta de queso bask' },
-      { src: '/images/interior-1.jpg', alt: 'Interior de La Puerta Verde',        caption: 'Nuestro espacio' },
-      { src: '/images/interior-2.jpg', alt: 'Ambiente acogedor del restaurante',  caption: 'Ambiente íntimo' },
-      { src: '/images/vinos.jpg',      alt: 'Selección de vinos de la carta',     caption: 'Nuestra bodega' },
+      {
+        src:     'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=900&q=80',
+        alt:     'Plato de autor de La Puerta Verde',
+        caption: 'Cocina de autor',
+      },
+      {
+        src:     'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80',
+        alt:     'Tapa de pescado en La Puerta Verde',
+        caption: 'Producto del mar',
+      },
+      {
+        src:     'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=800&q=80',
+        alt:     'Selección de vinos',
+        caption: 'Nuestra bodega',
+      },
+      {
+        src:     'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80',
+        alt:     'Interior del restaurante La Puerta Verde',
+        caption: 'Nuestro espacio',
+      },
+      {
+        src:     'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+        alt:     'Elaboración de tapa de autor',
+        caption: 'Técnica y sabor',
+      },
+      {
+        src:     'https://images.unsplash.com/photo-1482049016688-2d3e1b311543?auto=format&fit=crop&w=800&q=80',
+        alt:     'Detalle de plato de La Puerta Verde',
+        caption: 'El detalle importa',
+      },
     ],
   },
 
@@ -283,7 +307,7 @@ export const lapuertaverdeConfig: SiteConfig = {
     description: 'Bar de tapas de autor en Fuengirola. Cocina nórdico-española, selección de vinos y menús degustación. Martes a sábado de 19:00 a 23:00.',
     keywords:    ['restaurante fuengirola', 'bar de tapas fuengirola', 'tapas fuengirola', 'restaurante costa del sol', 'la puerta verde fuengirola', 'tapas de autor málaga', 'menú degustación fuengirola'],
     locale:      'es_ES',
-    siteUrl:     'https://lapuertaverde.netlify.app',
+    siteUrl:     'https://connoreichon.github.io/Paginas-Web',
     ogImage:     '/images/hero-restaurante.jpg',
   },
 }
