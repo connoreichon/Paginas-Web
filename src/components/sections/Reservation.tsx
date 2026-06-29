@@ -1,8 +1,12 @@
 import { useState, type FormEvent } from 'react'
 import type { SiteConfig } from '@/types/config.types'
+import type { Lang } from '@/App'
 import { useScrollAnimation } from '@/hooks/useScrollAnimation'
 
-interface ReservationProps { config: SiteConfig }
+interface ReservationProps {
+  config: SiteConfig
+  lang?:  Lang
+}
 
 interface FormState {
   nombre:    string
@@ -14,15 +18,16 @@ interface FormState {
 
 const EMPTY: FormState = { nombre: '', fecha: '', hora: '', personas: '', notas: '' }
 
-function buildContactUrl(config: SiteConfig, form: FormState): string {
+function buildContactUrl(config: SiteConfig, form: FormState, lang: Lang): string {
   const { business } = config
+  const isEn = lang === 'en'
   const lines = [
-    `🍽️ Solicitud de reserva — ${business.name}`,
-    `Nombre: ${form.nombre}`,
-    `Fecha: ${form.fecha}`,
-    `Hora: ${form.hora}`,
-    `Comensales: ${form.personas}`,
-    form.notas ? `Notas: ${form.notas}` : '',
+    `🍽️ ${isEn ? 'Booking request' : 'Solicitud de reserva'} — ${business.name}`,
+    `${isEn ? 'Name' : 'Nombre'}: ${form.nombre}`,
+    `${isEn ? 'Date' : 'Fecha'}: ${form.fecha}`,
+    `${isEn ? 'Time' : 'Hora'}: ${form.hora}`,
+    `${isEn ? 'Guests' : 'Comensales'}: ${form.personas}`,
+    form.notas ? `${isEn ? 'Notes' : 'Notas'}: ${form.notas}` : '',
   ].filter(Boolean).join('\n')
 
   if (business.whatsapp && business.whatsapp !== 'PENDIENTE_DE_CONFIRMAR') {
@@ -36,7 +41,7 @@ function buildContactUrl(config: SiteConfig, form: FormState): string {
   return `#contacto`
 }
 
-export default function Reservation({ config }: ReservationProps) {
+export default function Reservation({ config, lang = 'es' }: ReservationProps) {
   const { content, business } = config
   const ref = useScrollAnimation<HTMLElement>()
   const [form, setForm] = useState<FormState>(EMPTY)
@@ -44,6 +49,25 @@ export default function Reservation({ config }: ReservationProps) {
 
   const reservation = content.reservation
   if (!reservation?.enabled) return null
+
+  const isEn = lang === 'en'
+  const t = {
+    name:          isEn ? 'Full name'          : 'Nombre completo',
+    namePh:        isEn ? 'Your name'          : 'Tu nombre y apellidos',
+    date:          isEn ? 'Date'               : 'Fecha',
+    time:          isEn ? 'Time'               : 'Hora',
+    timePh:        isEn ? 'Select time'        : 'Selecciona hora',
+    guests:        isEn ? 'Guests'             : 'Número de personas',
+    guestsPh:      isEn ? 'How many guests?'   : '¿Cuántas personas sois?',
+    notes:         isEn ? 'Special notes'      : 'Notas especiales',
+    optional:      isEn ? '(optional)'         : '(opcional)',
+    notesPh:       isEn ? 'Allergies, special occasion, table preference…' : 'Alergias, celebración especial, petición de mesa…',
+    submit:        isEn ? 'Send booking request via WhatsApp' : 'Enviar solicitud por WhatsApp',
+    submitEmail:   isEn ? 'Send booking request'             : 'Enviar solicitud de reserva',
+    sent:          isEn ? 'Request sent! We\'ll confirm soon' : '¡Solicitud enviada! Te confirmamos pronto',
+    person:        isEn ? 'person'  : 'persona',
+    people:        isEn ? 'people'  : 'personas',
+  }
 
   const today = new Date().toISOString().split('T')[0]
 
@@ -53,7 +77,7 @@ export default function Reservation({ config }: ReservationProps) {
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault()
-    const url = buildContactUrl(config, form)
+    const url = buildContactUrl(config, form, lang)
     if (url === '#contacto') {
       document.getElementById('contacto')?.scrollIntoView({ behavior: 'smooth' })
       return
@@ -141,14 +165,14 @@ export default function Reservation({ config }: ReservationProps) {
           {/* Nombre */}
           <div>
             <label htmlFor="res-nombre" className="block font-body text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: '#C8A96A' }}>
-              Nombre completo <span aria-hidden="true" style={{ color: 'rgba(200,169,106,0.6)' }}>*</span>
+              {t.name} <span aria-hidden="true" style={{ color: 'rgba(200,169,106,0.6)' }}>*</span>
             </label>
             <input
               id="res-nombre"
               type="text"
               required
               autoComplete="name"
-              placeholder="Tu nombre y apellidos"
+              placeholder={t.namePh}
               value={form.nombre}
               onChange={set('nombre')}
               className="w-full font-body text-sm px-4 py-3.5 rounded-lg outline-none transition-colors placeholder:opacity-30"
@@ -166,7 +190,7 @@ export default function Reservation({ config }: ReservationProps) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
               <label htmlFor="res-fecha" className="block font-body text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: '#C8A96A' }}>
-                Fecha <span aria-hidden="true" style={{ color: 'rgba(200,169,106,0.6)' }}>*</span>
+                {t.date} <span aria-hidden="true" style={{ color: 'rgba(200,169,106,0.6)' }}>*</span>
               </label>
               <input
                 id="res-fecha"
@@ -188,7 +212,7 @@ export default function Reservation({ config }: ReservationProps) {
             </div>
             <div>
               <label htmlFor="res-hora" className="block font-body text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: '#C8A96A' }}>
-                Hora <span aria-hidden="true" style={{ color: 'rgba(200,169,106,0.6)' }}>*</span>
+                {t.time} <span aria-hidden="true" style={{ color: 'rgba(200,169,106,0.6)' }}>*</span>
               </label>
               <select
                 id="res-hora"
@@ -204,7 +228,7 @@ export default function Reservation({ config }: ReservationProps) {
                 onFocus={e => { e.target.style.borderColor = 'rgba(200,169,106,0.55)' }}
                 onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.14)' }}
               >
-                <option value="" disabled>Selecciona hora</option>
+                <option value="" disabled>{t.timePh}</option>
                 {reservation.timeSlots.map(t => (
                   <option key={t} value={t} style={{ background: '#1E3A2F', color: '#F4EFE6' }}>{t}</option>
                 ))}
@@ -215,7 +239,7 @@ export default function Reservation({ config }: ReservationProps) {
           {/* Número de personas */}
           <div>
             <label htmlFor="res-personas" className="block font-body text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: '#C8A96A' }}>
-              Número de personas <span aria-hidden="true" style={{ color: 'rgba(200,169,106,0.6)' }}>*</span>
+              {t.guests} <span aria-hidden="true" style={{ color: 'rgba(200,169,106,0.6)' }}>*</span>
             </label>
             <select
               id="res-personas"
@@ -231,10 +255,10 @@ export default function Reservation({ config }: ReservationProps) {
               onFocus={e => { e.target.style.borderColor = 'rgba(200,169,106,0.55)' }}
               onBlur={e => { e.target.style.borderColor = 'rgba(255,255,255,0.14)' }}
             >
-              <option value="" disabled>¿Cuántas personas sois?</option>
+              <option value="" disabled>{t.guestsPh}</option>
               {Array.from({ length: reservation.maxPartySize }, (_, i) => i + 1).map(n => (
                 <option key={n} value={String(n)} style={{ background: '#1E3A2F', color: '#F4EFE6' }}>
-                  {n === 1 ? '1 persona' : `${n} personas`}
+                  {n === 1 ? `1 ${t.person}` : `${n} ${t.people}`}
                 </option>
               ))}
             </select>
@@ -243,12 +267,12 @@ export default function Reservation({ config }: ReservationProps) {
           {/* Notas */}
           <div>
             <label htmlFor="res-notas" className="block font-body text-xs font-semibold uppercase tracking-wider mb-2" style={{ color: 'rgba(200,169,106,0.6)' }}>
-              Notas especiales <span className="font-normal normal-case tracking-normal ml-1 text-[11px]" style={{ color: 'rgba(244,239,230,0.3)' }}>(opcional)</span>
+              {t.notes} <span className="font-normal normal-case tracking-normal ml-1 text-[11px]" style={{ color: 'rgba(244,239,230,0.3)' }}>{t.optional}</span>
             </label>
             <textarea
               id="res-notas"
               rows={3}
-              placeholder="Alergias, celebración especial, petición de mesa..."
+              placeholder={t.notesPh}
               value={form.notas}
               onChange={set('notas')}
               className="w-full font-body text-sm px-4 py-3.5 rounded-lg outline-none transition-colors resize-none placeholder:opacity-30"
@@ -273,19 +297,19 @@ export default function Reservation({ config }: ReservationProps) {
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7"/>
                 </svg>
-                ¡Solicitud enviada! Te confirmamos pronto
+                {t.sent}
               </>
             ) : viaWhatsApp ? (
               <>
                 <WhatsAppIcon />
-                Enviar solicitud por WhatsApp
+                {t.submit}
               </>
             ) : (
               <>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                 </svg>
-                Enviar solicitud de reserva
+                {t.submitEmail}
               </>
             )}
           </button>

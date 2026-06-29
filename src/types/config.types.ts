@@ -199,4 +199,7 @@ export interface SiteConfig {
   gallery:  GalleryConfig
   reviews:  ReviewsConfig
   seo:      SEOConfig
+  locales?: {
+    en?: ContentConfig
+  }
 }

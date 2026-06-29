@@ -1,12 +1,15 @@
 import { useState, useEffect } from 'react'
 import type { SiteConfig } from '@/types/config.types'
+import type { Lang } from '@/App'
 
 interface HeaderProps {
-  config: SiteConfig
+  config:   SiteConfig
   navLinks: { href: string; label: string }[]
+  lang:     Lang
+  setLang:  (l: Lang) => void
 }
 
-export default function Header({ config, navLinks }: HeaderProps) {
+export default function Header({ config, navLinks, lang, setLang }: HeaderProps) {
   const { business, content } = config
   const [open, setOpen]         = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -75,6 +78,9 @@ export default function Header({ config, navLinks }: HeaderProps) {
               </a>
             ))}
 
+            {/* Selector de idioma */}
+            <LangToggle lang={lang} setLang={setLang} scrolled={scrolled} />
+
             {/* Botón Reservar — siempre destacado */}
             {reserveLink && (
               <a
@@ -98,8 +104,9 @@ export default function Header({ config, navLinks }: HeaderProps) {
             )}
           </nav>
 
-          {/* Mobile: botón reservar + hamburguesa */}
-          <div className="lg:hidden flex items-center gap-3">
+          {/* Mobile: idioma + reservar + hamburguesa */}
+          <div className="lg:hidden flex items-center gap-2">
+            <LangToggle lang={lang} setLang={setLang} scrolled={scrolled} />
             {reserveLink && (
               <a
                 href={reserveLink.href}
@@ -172,5 +179,51 @@ export default function Header({ config, navLinks }: HeaderProps) {
         </nav>
       </div>
     </header>
+  )
+}
+
+// ─── Language toggle ──────────────────────────────────────────────────────────
+
+interface LangToggleProps {
+  lang:     Lang
+  setLang:  (l: Lang) => void
+  scrolled: boolean
+}
+
+function LangToggle({ lang, setLang, scrolled }: LangToggleProps) {
+  return (
+    <div
+      className="flex items-center rounded-full overflow-hidden text-[11px] font-semibold tracking-wider uppercase select-none"
+      style={{
+        border: scrolled
+          ? '1px solid rgba(200,169,106,0.35)'
+          : '1px solid rgba(255,255,255,0.25)',
+      }}
+      role="group"
+      aria-label="Idioma / Language"
+    >
+      {(['es', 'en'] as const).map((l) => (
+        <button
+          key={l}
+          onClick={() => setLang(l)}
+          aria-pressed={lang === l}
+          aria-label={l === 'es' ? 'Español' : 'English'}
+          className="px-3 py-1.5 transition-all duration-200 leading-none"
+          style={
+            lang === l
+              ? {
+                  background: '#C8A96A',
+                  color: '#0d1f17',
+                }
+              : {
+                  background: 'transparent',
+                  color: scrolled ? 'rgba(244,239,230,0.5)' : 'rgba(255,255,255,0.5)',
+                }
+          }
+        >
+          {l.toUpperCase()}
+        </button>
+      ))}
+    </div>
   )
 }

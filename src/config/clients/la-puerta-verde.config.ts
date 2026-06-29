@@ -310,4 +310,107 @@ export const lapuertaverdeConfig: SiteConfig = {
     siteUrl:     'https://connoreichon.github.io/Paginas-Web',
     ogImage:     '/images/hero-restaurante.jpg',
   },
+
+  // ─── TRADUCCIONES (EN) ────────────────────────────────────────────────────
+
+  locales: {
+    en: {
+      hero: {
+        headline:     'Author tapas.\nSoul wines.',
+        subheadline:  'Artisan Nordic-Spanish cuisine in the heart of Fuengirola. An experience that goes beyond just eating.',
+        ctaPrimary:   'Book a table',
+        ctaSecondary: 'See the menu',
+        image:        'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2d/c0/41/03/caption.jpg?w=1600&h=1000&s=1',
+        imageAlt:     'Entrance of La Puerta Verde with its iconic green doors and prepared tables',
+        trustBadges: [
+          { value: '4.8★', label: 'on TripAdvisor' },
+          { value: '100%', label: 'local produce' },
+          { value: 'Open', label: 'tue – sat nights' },
+        ],
+      },
+
+      valueProps: [
+        {
+          icon:        'ChefHat',
+          title:       'Author cuisine',
+          description: 'Nordic technique with Mediterranean ingredients. The menu changes almost daily to guarantee maximum freshness.',
+        },
+        {
+          icon:        'Wine',
+          title:       'Wine selection',
+          description: 'A carefully curated wine list to pair with each tapa. The perfect pairing does exist.',
+        },
+        {
+          icon:        'Leaf',
+          title:       'Local produce',
+          description: 'We support Costa del Sol producers. Authentic flavour, zero kilometres, maximum commitment.',
+        },
+        {
+          icon:        'Heart',
+          title:       'Cosy atmosphere',
+          description: 'An intimate space where time stands still. Perfect for unwinding and truly enjoying the moment.',
+        },
+      ],
+
+      about: {
+        headline:   'A door open\nto good food',
+        body: [
+          'La Puerta Verde was born from a passion for honest cooking: quality ingredients, careful technique, and plenty of love in every dish.',
+          'We blend Nordic precision with the Mediterranean flavour that defines the Costa del Sol. The result is a unique experience that surprises on every visit.',
+          '"Hand crafted quality food and good wines." That is who we are. That is what we offer.',
+        ],
+        image:    'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/32/d7/c4/a0/caption.jpg?w=900&h=1200&s=1',
+        imageAlt: 'Facade of La Puerta Verde, tapas and wine bar in Fuengirola',
+        highlights: [
+          'Seasonal menu',
+          'Tasting menus',
+          'Wine selection',
+          'Open kitchen',
+        ],
+      },
+
+      cta: {
+        headline:    'Ready for the experience?',
+        subheadline: 'Book your table now and discover why La Puerta Verde is Fuengirola\'s favourite spot.',
+        ctaWhatsapp: 'Book via WhatsApp',
+        ctaCall:     'Call now',
+        ctaMaps:     'How to get here',
+      },
+
+      faq: [
+        {
+          question: 'Do I need to book in advance?',
+          answer:   'We recommend booking, especially on weekends. You can do so via WhatsApp, phone or through our website. We are an intimate space with limited seating.',
+        },
+        {
+          question: 'What are the opening hours?',
+          answer:   'We are open Tuesday to Saturday from 19:00 to 23:00. The kitchen closes at 22:00. We are closed on Sundays and Mondays.',
+        },
+        {
+          question: 'Do you have vegetarian or allergy-friendly options?',
+          answer:   'Yes, we work with fresh ingredients and can adapt several dishes. Please let us know when booking so we can prepare in advance.',
+        },
+        {
+          question: 'What are the tasting menus?',
+          answer:   'They are tasting menus with 3, 5 or 7 tapas from our daily selection (NO.3 · NO.5 · NO.7). The best way to discover our cuisine.',
+        },
+        {
+          question: 'Do you offer catering or private events?',
+          answer:   'Yes, we offer catering and gastronomic consulting for private events. Contact us for more information.',
+        },
+      ],
+
+      itemsTitle:    'Our Menu',
+      itemsSubtitle: 'Author tapas that change almost daily. Here is our regular selection.',
+
+      reservation: {
+        enabled:          true,
+        headline:         'Book your table',
+        subheadline:      'Secure your spot for a special evening. We are an intimate space with limited seating.',
+        confirmationNote: 'We confirm availability via WhatsApp within 2 hours. Open tue–sat from 19:00 to 23:00.',
+        timeSlots:        ['19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30'],
+        maxPartySize:     12,
+      },
+    },
+  },
 }

@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { siteConfig } from '@/config/active.config'
 import { applySEO } from '@/utils/seo'
 import Header from '@/components/layout/Header'
@@ -15,8 +15,19 @@ import FAQ from '@/components/sections/FAQ'
 import Reservation from '@/components/sections/Reservation'
 import FloatingWhatsApp from '@/components/sections/FloatingWhatsApp'
 
+export type Lang = 'es' | 'en'
+
 export default function App() {
-  const { theme, business } = siteConfig
+  const { theme } = siteConfig
+  const [lang, setLang] = useState<Lang>('es')
+
+  // Swap content block when locale changes; everything else stays the same
+  const activeConfig = useMemo(() => {
+    if (lang === 'en' && siteConfig.locales?.en) {
+      return { ...siteConfig, content: siteConfig.locales.en }
+    }
+    return siteConfig
+  }, [lang])
 
   // Apply theme CSS variables from config
   useEffect(() => {
@@ -40,32 +51,41 @@ export default function App() {
     applySEO(siteConfig)
   }, [theme])
 
-  const navLinks = [
-    { href: '#nosotros',  label: 'Nosotros' },
-    { href: '#carta',     label: business.type === 'restaurant' ? 'Carta' : 'Productos' },
-    { href: '#galeria',   label: 'Galería' },
-    { href: '#opiniones', label: 'Opiniones' },
-    { href: '#reservar',  label: 'Reservar' },
-    { href: '#contacto',  label: 'Contacto' },
-  ]
+  const navLinks = lang === 'es'
+    ? [
+        { href: '#nosotros',  label: 'Nosotros' },
+        { href: '#carta',     label: siteConfig.business.type === 'restaurant' ? 'Carta' : 'Productos' },
+        { href: '#galeria',   label: 'Galería' },
+        { href: '#opiniones', label: 'Opiniones' },
+        { href: '#reservar',  label: 'Reservar' },
+        { href: '#contacto',  label: 'Contacto' },
+      ]
+    : [
+        { href: '#nosotros',  label: 'About' },
+        { href: '#carta',     label: siteConfig.business.type === 'restaurant' ? 'Menu' : 'Products' },
+        { href: '#galeria',   label: 'Gallery' },
+        { href: '#opiniones', label: 'Reviews' },
+        { href: '#reservar',  label: 'Book' },
+        { href: '#contacto',  label: 'Contact' },
+      ]
 
   return (
     <>
-      <Header config={siteConfig} navLinks={navLinks} />
+      <Header config={activeConfig} navLinks={navLinks} lang={lang} setLang={setLang} />
       <main>
-        <Hero     config={siteConfig} />
-        <ValueProps config={siteConfig} />
-        <About    config={siteConfig} />
-        <FeaturedItems config={siteConfig} />
-        <Gallery  config={siteConfig} />
-        <Reviews  config={siteConfig} />
-        <Reservation config={siteConfig} />
-        <CTASection config={siteConfig} />
-        <Location config={siteConfig} />
-        <FAQ      config={siteConfig} />
+        <Hero        config={activeConfig} />
+        <ValueProps  config={activeConfig} />
+        <About       config={activeConfig} />
+        <FeaturedItems config={activeConfig} />
+        <Gallery     config={activeConfig} />
+        <Reviews     config={activeConfig} />
+        <Reservation config={activeConfig} lang={lang} />
+        <CTASection  config={activeConfig} />
+        <Location    config={activeConfig} />
+        <FAQ         config={activeConfig} />
       </main>
-      <Footer   config={siteConfig} navLinks={navLinks} />
-      <FloatingWhatsApp config={siteConfig} />
+      <Footer config={activeConfig} navLinks={navLinks} />
+      <FloatingWhatsApp config={activeConfig} />
     </>
   )
 }
